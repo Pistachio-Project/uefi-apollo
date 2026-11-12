@@ -3127,6 +3127,32 @@
 </td></tr>
 </table>
 
+## Xiaomi Mi 10T / Mi 10T Pro / Redmi K30S Ultra
+
+> [!NOTE]
+> This entry is the UniXNU fork's apollo port. It boots the UniXNU boot menu and DarwinBoot, not Windows or Linux.
+> XNU status is kept in the [device porting record](https://github.com/Pistachio-Project/UniXNU-apollo/blob/main/porting.toml).
+
+**State:** Active <br>
+**Codename:** apollo
+
+**Contributors:** HakiOS (`devices/mi-10t/uefi`), ported from [alioth](#xiaomi-poco-f3--redmi-k40--mi-11x)
+
+### UEFI Status
+
+| Feature            | Description                                      | State |
+|:-------------------|:-------------------------------------------------|:-----:|
+| Display            | Simple frame buffer left by ABL                  | ✅    |
+| Internal Storage   | UFS Block I/O, used by HakiOS's loader           | ✅    |
+| Side Buttons       |                                                  | ❔    |
+| USB Host Mode      |                                                  | ❔    |
+| USB Device Mode    |                                                  | ❔    |
+| USB Power Delivery |                                                  | ❔    |
+| Mass Storage       |                                                  | ❔    |
+| UniXNU Boot        | Not yet booted with this integration             | ❔    |
+| Windows Boot       |                                                  | ❔    |
+| Linux Boot         |                                                  | ❔    |
+
 </details>
 
 ---
