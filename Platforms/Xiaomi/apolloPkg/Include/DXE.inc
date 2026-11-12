@@ -41,8 +41,11 @@
 !endif
 
   INF Binaries/apollo/QcomPkg/Drivers/PdcDxe/PdcDxe.inf
-  INF Binaries/apollo/MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
-  INF Binaries/apollo/MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
+  INF UniXNUPkg/Driver/UniXNURamDiskDxe/UniXNURamDiskDxe.inf
+  # The XNU loader is part of the firmware, as in uefi-sheng.
+  INF DarwinBootPkg/Driver/DarwinBoot.inf
+  INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
+  INF MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
 
   INF FatPkg/EnhancedFatDxe/Fat.inf
   INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf

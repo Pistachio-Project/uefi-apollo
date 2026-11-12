@@ -31,6 +31,8 @@ class CommonPlatform ():
     WorkspaceRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     PackagesPath = (
         "Platforms/Xiaomi",
+        os.path.join(os.environ.get("UNIXNU_ROOT", os.path.join(WorkspaceRoot, "..", "UniXNU")), "package"),
+        os.environ.get("DARWINBOOT_ROOT", os.path.join(WorkspaceRoot, "..", "UniXNU", "drivers", "DarwinBoot")),
         "Common/Mu",
         "Common/Mu_OEM_Sample",
         "Mu_Basecore",

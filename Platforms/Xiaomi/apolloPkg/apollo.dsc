@@ -67,6 +67,18 @@
   #
   gQcomPkgTokenSpaceGuid.PcdPlatformType|"LA"
 
+  #
+  # UniXNU
+  #
+  # Name of the files the Advanced Logger exporter (Tools menu) writes.
+  gUniXNUPkgTokenSpaceGuid.PcdUniXNUDeviceModel|"apollo"
+
+  #
+  # Advanced Logger
+  #
+  # The DXE Core instance allocates the in-memory log (PcdAdvancedLoggerBase stays 0).
+  gAdvLoggerPkgTokenSpaceGuid.PcdAdvancedLoggerPages|512
+
 [LibraryClasses]
   #
   # Memory Libraries
@@ -85,3 +97,39 @@
   # Reuse alioth's SM8250 ACPI tables. XNU takes its platform data from the device tree,
   # not from ACPI; these tables can be made board-specific later.
   alioth/AcpiTables.inf
+
+  #
+  # UniXNU
+  #
+  # Boot menu, its boot option registrar, the XNU loader, the block device of
+  # the boot-image payload (FDT initrd) and the Advanced Logger exporter.
+  # DiskIoDxe, PartitionDxe, EnglishDxe and Fat come from SiliciumPkg.dsc.inc.
+  #
+  UniXNUPkg/Application/UniXNU/UniXNU.inf
+  UniXNUPkg/Driver/UniXNUDxe/UniXNUDxe.inf
+  UniXNUPkg/Driver/UniXNURamDiskDxe/UniXNURamDiskDxe.inf
+  DarwinBootPkg/Driver/DarwinBoot.inf
+  UniXNUPkg/Driver/AdvancedLogDxe/AdvancedLogDxe.inf
+
+[LibraryClasses]
+  UniXNULib|UniXNUPkg/Library/UniXNULib/UniXNULib.inf
+  HobLib|MdePkg/Library/DxeHobLib/DxeHobLib.inf
+  FdtLib|MdePkg/Library/BaseFdtLib/BaseFdtLib.inf
+
+  #
+  # Advanced Logger: DXE debug output goes to the in-memory log and on to the
+  # platform serial port (the frame buffer in DEBUG builds); AdvancedLogDxe
+  # exports it as QR codes from UniXNU's Tools menu.
+  #
+  AdvancedLoggerAccessLib|AdvLoggerPkg/Library/AdvancedLoggerAccessLib/AdvancedLoggerAccessLib.inf
+  AdvancedLoggerHdwPortLib|AdvLoggerPkg/Library/AdvancedLoggerHdwPortLib/AdvancedLoggerHdwPortLib.inf
+  AssertLib|AdvLoggerPkg/Library/AssertLib/AssertLib.inf
+  QrEncoderLib|MsGraphicsPkg/Library/QrEncoderLib/QrEncoderLib.inf
+
+[LibraryClasses.common.DXE_CORE]
+  AdvancedLoggerLib|AdvLoggerPkg/Library/AdvancedLoggerLib/DxeCore/AdvancedLoggerLib.inf
+  DebugLib|AdvLoggerPkg/Library/BaseDebugLibAdvancedLogger/BaseDebugLibAdvancedLogger.inf
+
+[LibraryClasses.common.DXE_DRIVER, LibraryClasses.common.UEFI_DRIVER, LibraryClasses.common.UEFI_APPLICATION]
+  AdvancedLoggerLib|AdvLoggerPkg/Library/AdvancedLoggerLib/Dxe/AdvancedLoggerLib.inf
+  DebugLib|AdvLoggerPkg/Library/BaseDebugLibAdvancedLogger/BaseDebugLibAdvancedLogger.inf

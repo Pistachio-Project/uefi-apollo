@@ -18,6 +18,9 @@
 
 #include "Sec.h"
 
+// First argument (x0) of the previous stage, saved by ModuleEntryPoint.S
+extern UINT64  gSecEntryArg0;
+
 #ifndef MDEPKG_NDEBUG
 STATIC
 VOID
@@ -130,6 +133,14 @@ SecMain (VOID)
     return;
   }
 
+  // Pass on what the previous stage handed over in x0 (a DT address for a
+  // Linux-style boot loader), so a DXE driver can use it.
+  {
+    UINT64  EntryArg = gSecEntryArg0;
+
+    BuildGuidDataHob (&gSiliciumEntryArgHobGuid, &EntryArg, sizeof (EntryArg));
+  }
+
   // Run Library Cconstructors
   ProcessLibraryConstructorList ();
 
@@ -159,9 +170,10 @@ SecEntry (VOID)
   // Enable Instruction Cache
   ArmEnableInstructionCache ();
 
-  // Invalidate Stack & UEFI FD D-Cache
-  InvalidateDataCacheRange ((VOID *)FixedPcdGet64 (PcdCPUCoresStackBase), FixedPcdGet32 (PcdCPUCorePrimaryStackSize));
-  InvalidateDataCacheRange ((VOID *)FixedPcdGet64 (PcdFdBaseAddress),     FixedPcdGet32 (PcdFdSize));
+  // Write back and invalidate Stack & UEFI FD D-Cache. A plain invalidate would discard what the entry code just stored there
+  // (live stack frames, gSecEntryArg0) if the previous stage left the data cache on.
+  WriteBackInvalidateDataCacheRange ((VOID *)FixedPcdGet64 (PcdCPUCoresStackBase), FixedPcdGet32 (PcdCPUCorePrimaryStackSize));
+  WriteBackInvalidateDataCacheRange ((VOID *)FixedPcdGet64 (PcdFdBaseAddress),     FixedPcdGet32 (PcdFdSize));
 
   // Verify Exception Vector Table
   ASSERT (((UINTN)SecVectorTable & ARM_VECTOR_TABLE_ALIGNMENT) == 0);
