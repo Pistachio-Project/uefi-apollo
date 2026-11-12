@@ -32,8 +32,8 @@ APRIORI DXE {
   INF Binaries/apollo/QcomPkg/Drivers/TLMMDxe/TLMMDxe.inf
   INF Binaries/apollo/QcomPkg/Drivers/ResetRuntimeDxe/ResetRuntimeDxe.inf
   INF Binaries/apollo/QcomPkg/Drivers/PmicDxe/PmicDxeLa.inf
-  INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
-  INF MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
+  INF Binaries/apollo/MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
+  INF Binaries/apollo/MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
 
   INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
 

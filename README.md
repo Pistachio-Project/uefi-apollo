@@ -42,6 +42,11 @@ DarwinBoot is built into the firmware volume, and `AdvancedLogDxe` exports the
 firmware log from UniXNU's Tools menu.
 See [required firmware integration](https://unixnu.com/porting/uefi-firmware#required-integration).
 
+DiskIoDxe and PartitionDxe are the phone's own prebuilt drivers (`Binaries/apollo`), not
+the MdeModulePkg builds uefi-sheng uses: with the MdeModulePkg pair apollo hangs on a blank
+screen before the menu (bisected on hardware, 2026-11-12); with the prebuilt pair it reaches
+the UniXNU menu.
+
 ## Vendor binaries
 
 `Binaries` is the Device-Binaries submodule, as in upstream Mu-Silicium.
