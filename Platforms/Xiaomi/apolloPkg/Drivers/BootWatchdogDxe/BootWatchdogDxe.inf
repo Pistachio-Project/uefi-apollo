@@ -1,0 +1,30 @@
+## @file
+#  Arms the SM8250 APSS watchdog when boot services exit, so a kernel that hangs resets the phone by itself.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+[Defines]
+  INF_VERSION                    = 0x0010005
+  BASE_NAME                      = BootWatchdogDxe
+  FILE_GUID                      = 6B8F0C1E-5F0B-4C0E-9D0B-3B1E2A7C54A1
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = BootWatchdogEntry
+
+[Sources]
+  BootWatchdogDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  IoLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+
+[Guids]
+  gEfiEventExitBootServicesGuid
+
+[Depex]
+  TRUE

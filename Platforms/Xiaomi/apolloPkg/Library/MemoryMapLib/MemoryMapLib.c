@@ -31,6 +31,10 @@ gMemoryDescriptor[] = {
   // ramdisk are loaded here, so the payload FAT volume that UniXNURamDiskDxe publishes from /chosen
   // linux,initrd-start/end and the FDT it reads stay reserved while UEFI runs.
   {"Kernel",             0xA0000000, 0x10000000, AddMem, SYS_MEM, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
+  // Android's ramoops zone (ramoops.mem_address=0xb0000000 mem_size=0x400000 on this phone's LineageOS: console in the
+  // first 2 MiB, pmsg in the second). XNU copies its console there (bootlog=0xb0000000) and Android publishes it as
+  // /sys/fs/pstore/console-ramoops-0 after the reset, so neither UEFI nor the kernel's memory window may use it.
+  {"Ramoops",            0xB0000000, 0x00400000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
 
   // Other Memory Regions
   {"IMEM Base",          0x14680000, 0x00040000, NoHob,  MMAP_IO, INITIALIZED, Conv,   NS_DEVICE},

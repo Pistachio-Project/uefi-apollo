@@ -111,6 +111,11 @@
   DarwinBootPkg/Driver/DarwinBoot.inf
   UniXNUPkg/Driver/AdvancedLogDxe/AdvancedLogDxe.inf
 
+  #
+  # Resets the phone by itself when the kernel hangs after the hand-off.
+  #
+  apolloPkg/Drivers/BootWatchdogDxe/BootWatchdogDxe.inf
+
 [LibraryClasses]
   UniXNULib|UniXNUPkg/Library/UniXNULib/UniXNULib.inf
   HobLib|MdePkg/Library/DxeHobLib/DxeHobLib.inf
